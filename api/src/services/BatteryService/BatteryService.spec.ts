@@ -185,9 +185,52 @@ describe('BatteryService', () => {
             emptyCount: 2,
             status: BatteryStatus.Empty,
             charge: 0,
+            totalCapacity: 4,
           });
 
           expect(result).toEqual(resultMock);
+        });
+
+        describe('when the empty state is a multiple of 3', () => {
+          let mockData: Battery;
+          let resultMock: Battery;
+          beforeAll(() => {
+            mockData = {
+              id: 1212,
+              name: 'Existing Battery',
+              totalCapacity: 4,
+              charge: 2,
+              status: BatteryStatus.Charged,
+              emptyCount: 2,
+            };
+
+            resultMock = {
+              ...mockData,
+              emptyCount: 3,
+              charge: 0,
+              status: BatteryStatus.Empty,
+              totalCapacity: 3.6,
+            };
+
+            jest.spyOn(batteryRepo, 'findById').mockResolvedValue(mockData);
+
+            jest
+              .spyOn(batteryRepo, 'dischargeBattery')
+              .mockResolvedValue(resultMock);
+          });
+
+          it('should reduce the total capacity by 10%', async () => {
+            const result = await batteryService.dischargeBattery(1234, 2);
+
+            expect(batteryRepo.dischargeBattery).toHaveBeenCalledWith(1234, {
+              emptyCount: 3,
+              status: BatteryStatus.Empty,
+              charge: 0,
+              totalCapacity: 3.6,
+            });
+
+            expect(result).toEqual(resultMock);
+          });
         });
       });
 
@@ -224,6 +267,7 @@ describe('BatteryService', () => {
             emptyCount: 1,
             status: BatteryStatus.Charged,
             charge: 1,
+            totalCapacity: 4,
           });
 
           expect(result).toEqual(resultMock);

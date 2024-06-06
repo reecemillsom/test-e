@@ -113,6 +113,7 @@ describe('BatteryRepository', () => {
           charge: 2,
           emptyCount: 0,
           totalCapacity: 4,
+          status: BatteryStatus.Charged,
         });
 
         expect(updateSpy).toHaveBeenCalledWith({

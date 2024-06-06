@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Battery } from '@prisma/client';
+import { Battery, BatteryStatus } from '@prisma/client';
 import PrismaService from '../../prisma.service';
 
 @Injectable()
@@ -35,9 +35,14 @@ export class BatteryRepository {
 
   public async dischargeBattery(
     batteryId: number,
-    update: { charge: number; emptyCount?: number; totalCapacity?: number },
+    update: {
+      charge: number;
+      status: BatteryStatus;
+      emptyCount: number;
+      totalCapacity: number;
+    },
   ): Promise<Battery> {
-    const { charge, totalCapacity, emptyCount } = update;
+    const { charge, status, totalCapacity, emptyCount } = update;
 
     return this.prismaService.battery.update({
       where: {
@@ -47,6 +52,7 @@ export class BatteryRepository {
         charge,
         emptyCount,
         totalCapacity,
+        status,
       },
     });
   }
