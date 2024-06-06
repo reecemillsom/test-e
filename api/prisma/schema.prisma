@@ -5,10 +5,25 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "postgresql"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Battery {
+  id            Int           @id @default(autoincrement())
+  name          String
+  totalCapacity Int           @default(4)
+  charge        Int           @default(4)
+  emptyCount    Int           @default(0)
+  status        BatteryStatus @default(Full)
+}
+
+enum BatteryStatus {
+  Empty
+  Charged
+  Full
 }
