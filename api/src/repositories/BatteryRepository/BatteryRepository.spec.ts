@@ -109,7 +109,11 @@ describe('BatteryRepository', () => {
           .spyOn(prismaService.battery, 'update')
           .mockResolvedValue(mockData);
 
-        await batteryRepository.dischargeBattery(1234, 2);
+        await batteryRepository.dischargeBattery(1234, {
+          charge: 2,
+          emptyCount: 0,
+          totalCapacity: 4,
+        });
 
         expect(updateSpy).toHaveBeenCalledWith({
           where: {
@@ -117,9 +121,36 @@ describe('BatteryRepository', () => {
           },
           data: {
             charge: 2,
+            emptyCount: 0,
+            totalCapacity: 4,
           },
         });
       });
+    });
+  });
+
+  describe('when asked to find a battery', () => {
+    let mockData: Battery;
+
+    beforeAll(() => {
+      mockData = {
+        id: 1234,
+        name: 'New Battery',
+        totalCapacity: 4,
+        charge: 2,
+        emptyCount: 0,
+        status: BatteryStatus.Full,
+      };
+    });
+
+    it('should call the database with a battery id value', async () => {
+      jest
+        .spyOn(prismaService.battery, 'findUnique')
+        .mockResolvedValue(mockData);
+
+      const result = await batteryRepository.findById(mockData.id);
+
+      expect(result).toEqual(mockData);
     });
   });
 });
