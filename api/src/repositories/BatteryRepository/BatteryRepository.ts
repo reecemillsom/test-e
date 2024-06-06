@@ -21,14 +21,17 @@ export class BatteryRepository {
 
   public async chargeBattery(
     batteryId: number,
-    charge: number,
+    update: { charge: number; status: BatteryStatus },
   ): Promise<Battery> {
+    const { charge, status } = update;
+
     return this.prismaService.battery.update({
       where: {
         id: batteryId,
       },
       data: {
         charge,
+        status,
       },
     });
   }

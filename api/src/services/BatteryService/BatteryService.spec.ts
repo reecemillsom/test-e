@@ -75,15 +75,23 @@ describe('BatteryService', () => {
           jest.spyOn(batteryRepo, 'chargeBattery').mockResolvedValue({
             ...mockData,
             charge: 4,
+            status: BatteryStatus.Full,
           });
         });
 
         it('should call the repo with the id and the charge', async () => {
           const result = await batteryService.chargeBattery(1212, 10);
 
-          expect(batteryRepo.chargeBattery).toHaveBeenCalledWith(1212, 4);
+          expect(batteryRepo.chargeBattery).toHaveBeenCalledWith(1212, {
+            charge: 4,
+            status: BatteryStatus.Full,
+          });
 
-          expect(result).toEqual({ ...mockData, charge: 4 });
+          expect(result).toEqual({
+            ...mockData,
+            status: BatteryStatus.Full,
+            charge: 4,
+          });
         });
       });
 
@@ -110,7 +118,10 @@ describe('BatteryService', () => {
         it('should call the repo with the id and charge', async () => {
           const result = await batteryService.chargeBattery(1212, 1);
 
-          expect(batteryRepo.chargeBattery).toHaveBeenCalledWith(1212, 3);
+          expect(batteryRepo.chargeBattery).toHaveBeenCalledWith(1212, {
+            charge: 3,
+            status: BatteryStatus.Charged,
+          });
 
           expect(result).toEqual({ ...mockData, charge: 3 });
         });

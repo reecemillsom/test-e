@@ -65,7 +65,7 @@ describe('BatteryRepository', () => {
           id: 1234,
           name: 'New Battery',
           totalCapacity: 4,
-          charge: 4,
+          charge: 2,
           emptyCount: 0,
           status: BatteryStatus.Full,
         };
@@ -76,7 +76,10 @@ describe('BatteryRepository', () => {
           .spyOn(prismaService.battery, 'update')
           .mockResolvedValue(mockData);
 
-        await batteryRepository.chargeBattery(1234, 4);
+        await batteryRepository.chargeBattery(1234, {
+          charge: 4,
+          status: BatteryStatus.Full,
+        });
 
         expect(updateSpy).toHaveBeenCalledWith({
           where: {
@@ -84,6 +87,7 @@ describe('BatteryRepository', () => {
           },
           data: {
             charge: 4,
+            status: BatteryStatus.Full,
           },
         });
       });
@@ -124,6 +128,7 @@ describe('BatteryRepository', () => {
             charge: 2,
             emptyCount: 0,
             totalCapacity: 4,
+            status: BatteryStatus.Charged,
           },
         });
       });

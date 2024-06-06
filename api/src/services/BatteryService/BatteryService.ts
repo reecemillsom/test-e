@@ -14,7 +14,6 @@ export class BatteryService {
     return this.batteryRepository.createBattery(name, capacity);
   }
 
-  // TODO need to add logic, if charge goes to full, status needs to change, if it's a partial charge then it should be Charged.
   public async chargeBattery(
     batteryId: number,
     charge: number,
@@ -27,12 +26,18 @@ export class BatteryService {
 
     const updatedCharge = battery.charge + charge;
 
-    return this.batteryRepository.chargeBattery(
-      batteryId,
-      updatedCharge > battery.totalCapacity
-        ? battery.totalCapacity
-        : updatedCharge,
-    );
+    const update = {
+      charge:
+        updatedCharge >= battery.totalCapacity
+          ? battery.totalCapacity
+          : updatedCharge,
+      status:
+        updatedCharge >= battery.totalCapacity
+          ? BatteryStatus.Full
+          : BatteryStatus.Charged,
+    };
+
+    return this.batteryRepository.chargeBattery(batteryId, update);
   }
 
   public async dischargeBattery(
