@@ -1,0 +1,1 @@
+// TODO initialise DB with battery info once schema is decided upon

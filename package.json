@@ -1,0 +1,19 @@
+{
+  "name": "sunsave-test",
+  "version": "1.0.0",
+  "description": "Test for battery application",
+  "scripts": {
+    "build": "yarn workspaces run build",
+    "test": "yarn workspaces run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reecemillsom/sunsave-test.git"
+  },
+  "private": true,
+  "workspaces": [
+    "lib",
+    "api",
+    "client"
+  ]
+}
