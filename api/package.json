@@ -8,6 +8,8 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "format:schema:db": "prisma format",
     "generate:db": "prisma generate",
+    "generate:migration:db": "prisma migrate dev --create-only --preview-feature",
+    "run:migration:db": "prisma migrate dev --preview-feature",
     "start:db": "docker-compose up -d",
     "seed:db": "ts-node prisma/seed.ts",
     "start": "nest start",
