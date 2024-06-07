@@ -6,16 +6,18 @@ export function useFetchBattery() {
     null,
   );
 
-  // TODO fix any typing.
   const genericFetch = async (
     url: string,
     method: "GET" | "PATCH",
-    data?: any,
+    data?: string,
   ) => {
     try {
       const response = await fetch(url, {
         method,
         body: data,
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
 
       if (!response.ok) {
@@ -40,18 +42,22 @@ export function useFetchBattery() {
   };
 
   const chargeBattery = async (charge: number) => {
-    await genericFetch(`${process.env.NEXT_PUBLIC_API_URL}/1/charge`, "PATCH", {
-      charge,
-    });
+    await genericFetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/1/charge`,
+      "PATCH",
+      JSON.stringify({
+        charge,
+      }),
+    );
   };
 
   const dischargeBattery = async (discharge: number) => {
     await genericFetch(
       `${process.env.NEXT_PUBLIC_API_URL}/1/discharge`,
       "PATCH",
-      {
+      JSON.stringify({
         discharge,
-      },
+      }),
     );
   };
 

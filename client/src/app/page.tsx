@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { KeyboardEvent, useEffect } from "react";
 import { useFetchBattery } from "@/hooks/useFetchBattery";
 import { Battery } from "@/components/Battery/Battery";
 import {
@@ -10,6 +10,8 @@ import {
   BatteryMeta,
 } from "./styles";
 import styles from "./page.module.css";
+
+type EditType = "charge" | "discharge";
 
 export default function Home() {
   const {
@@ -22,6 +24,22 @@ export default function Home() {
   useEffect(() => {
     fetchBattery();
   }, []);
+
+  const handlerSubmit = (e: KeyboardEvent, editType: EditType) => {
+    const isEnterKey = e.key === "Enter";
+    const targetValue: number = Number((e.target as HTMLInputElement).value);
+
+    if (isEnterKey) {
+      if (targetValue > 0) {
+        editType === "charge"
+          ? chargeBattery(targetValue)
+          : dischargeBattery(targetValue);
+      } else {
+        // TODO give some form of user feedback
+        console.log("Input value should be greater than 0");
+      }
+    }
+  };
 
   console.log("battery", battery);
 
@@ -37,21 +55,19 @@ export default function Home() {
             <BatteryMeta>
               <b>Charge:</b>
               <BatteryEditInput
-                id="number"
                 type="number"
                 step={0.1}
                 min={0.1}
-                style={{ width: "50%" }}
+                onKeyDown={(e) => handlerSubmit(e, "charge")}
               />
             </BatteryMeta>
             <BatteryMeta>
               <b>Discharge:</b>
               <BatteryEditInput
-                id="number"
                 type="number"
                 step={0.1}
                 min={0.1}
-                style={{ width: "50%" }}
+                onKeyDown={(e) => handlerSubmit(e, "discharge")}
               />
             </BatteryMeta>
           </BatteryInfo>

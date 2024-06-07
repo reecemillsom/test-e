@@ -24,9 +24,9 @@ export const BatteryContainer = styled.div`
 `;
 
 export const BatteryEditInput = styled.input`
-  width: 40%;
+  width: 50%;
 
   @media (max-width: 600px) {
-    width: 40% !important;
+    width: 40%;
   }
 `;

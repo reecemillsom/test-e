@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const Battery: FC<Props> = ({ capacity, charge }) => {
-  const totalCharge = Math.round((capacity / charge) * 100);
+  const totalCharge = Math.round((charge / capacity) * 100);
 
   return (
     <S.BatteryContainer totalCharge={totalCharge}>
