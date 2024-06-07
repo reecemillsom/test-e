@@ -10,6 +10,16 @@ import { BatteryRepository } from '../../repositories/BatteryRepository';
 export class BatteryService {
   constructor(private batteryRepository: BatteryRepository) {}
 
+  public async findById(batteryId: number): Promise<Battery> {
+    const battery = await this.batteryRepository.findById(batteryId);
+
+    if (!battery) {
+      throw new NotFoundException(`Battery with id ${batteryId} not found`);
+    }
+
+    return battery;
+  }
+
   public async createBattery(name: string, capacity: number): Promise<Battery> {
     return this.batteryRepository.createBattery(name, capacity);
   }
@@ -18,11 +28,7 @@ export class BatteryService {
     batteryId: number,
     charge: number,
   ): Promise<Battery> {
-    const battery = await this.batteryRepository.findById(batteryId);
-
-    if (!battery) {
-      throw new NotFoundException(`Battery with id ${batteryId} not found`);
-    }
+    const battery = await this.findById(batteryId);
 
     const updatedCharge = battery.charge + charge;
 
@@ -44,11 +50,7 @@ export class BatteryService {
     batteryId: number,
     charge: number,
   ): Promise<Battery> {
-    const battery = await this.batteryRepository.findById(batteryId);
-
-    if (!battery) {
-      throw new NotFoundException(`Battery with id ${batteryId} not found`);
-    }
+    const battery = await this.findById(batteryId);
 
     if (charge > battery.charge) {
       throw new BadRequestException(

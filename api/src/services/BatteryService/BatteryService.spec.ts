@@ -22,6 +22,45 @@ describe('BatteryService', () => {
     batteryService = moduleRef.get<BatteryService>(BatteryService);
   });
 
+  describe('when asked to find a battery', () => {
+    describe('when battery is not found', () => {
+      beforeAll(() => {
+        jest.spyOn(batteryRepo, 'findById').mockResolvedValue(null);
+      });
+
+      it('should throw a not found exception', async () => {
+        await expect(batteryService.findById(2)).rejects.toBeInstanceOf(
+          NotFoundException,
+        );
+      });
+    });
+
+    describe('when battery is found', () => {
+      let battery: Battery;
+
+      beforeAll(() => {
+        battery = {
+          id: 1,
+          name: 'Existing Battery',
+          totalCapacity: 8,
+          charge: 8,
+          status: BatteryStatus.Full,
+          emptyCount: 0,
+        };
+
+        jest.spyOn(batteryRepo, 'findById').mockResolvedValue(battery);
+      });
+
+      it('should return the found battery', async () => {
+        const result = await batteryService.findById(battery.id);
+
+        expect(batteryRepo.findById).toHaveBeenCalledWith(battery.id);
+
+        expect(result).toEqual(battery);
+      });
+    });
+  });
+
   describe('when asked to create a battery', () => {
     let mockData: Battery;
     beforeAll(() => {

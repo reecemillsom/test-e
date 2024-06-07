@@ -6,6 +6,49 @@ import { AppModule } from './app.module';
 import PrismaService from './prisma.service';
 
 describe('BatteryController', () => {
+  describe('GET /:id/', () => {
+    let app: INestApplication;
+    let battery: Battery;
+
+    beforeAll(async () => {
+      battery = {
+        id: 1,
+        name: 'Existing Battery',
+        totalCapacity: 8,
+        charge: 8,
+        emptyCount: 0,
+        status: BatteryStatus.Full,
+      };
+
+      const prismaService = {
+        battery: {
+          findUnique: jest.fn().mockResolvedValue(battery),
+        },
+      };
+
+      const moduleRef = await Test.createTestingModule({
+        imports: [AppModule],
+      })
+        .overrideProvider(PrismaService)
+        .useValue(prismaService)
+        .compile();
+
+      app = moduleRef.createNestApplication();
+      await app.init();
+    });
+
+    afterAll(async () => {
+      await app.close();
+    });
+
+    it('should return the found battery', async () => {
+      return request(app.getHttpServer())
+        .get(`/batteries/${battery.id}`)
+        .expect(200)
+        .expect(battery);
+    });
+  });
+
   describe('POST /batteries', () => {
     let battery: Battery;
     let app: INestApplication;

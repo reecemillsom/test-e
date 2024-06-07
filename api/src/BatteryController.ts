@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   Patch,
   Post,
@@ -14,6 +15,11 @@ import { BatteryService } from './services/BatteryService';
 @Controller('batteries')
 export class BatteryController {
   constructor(private readonly batteryService: BatteryService) {}
+
+  @Get('/:id/')
+  getBattery(@Param('id') id: number): Promise<Battery> {
+    return this.batteryService.findById(id);
+  }
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
