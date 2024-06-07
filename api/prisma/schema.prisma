@@ -16,8 +16,8 @@ datasource db {
 model Battery {
   id            Int           @id @default(autoincrement())
   name          String
-  totalCapacity Int           @default(4)
-  charge        Int           @default(4)
+  totalCapacity Float           @default(4)
+  charge        Float           @default(4)
   emptyCount    Int           @default(0)
   status        BatteryStatus @default(Full)
 }

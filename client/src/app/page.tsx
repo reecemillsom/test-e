@@ -41,8 +41,6 @@ export default function Home() {
     }
   };
 
-  console.log("battery", battery);
-
   return (
     <main className={styles.main}>
       {battery && (
@@ -51,6 +49,10 @@ export default function Home() {
           <BatteryInfo>
             <BatteryMeta>
               <b>Status:</b> <span>{battery.status}</span>
+            </BatteryMeta>
+            <BatteryMeta>
+              <b>Current Charge:</b>
+              <span>{battery.charge}kW</span>
             </BatteryMeta>
             <BatteryMeta>
               <b>Charge:</b>
