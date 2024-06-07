@@ -54,7 +54,7 @@ export class BatteryService {
 
     if (charge > battery.charge) {
       throw new BadRequestException(
-        `Cannot discharge more than the battery has ${batteryId}`,
+        `Cannot discharge more than the battery has id: ${batteryId}`,
       );
     }
 
