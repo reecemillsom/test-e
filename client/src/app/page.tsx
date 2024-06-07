@@ -1,17 +1,24 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect } from "react";
 import styles from "./page.module.css";
+import { useFetchBattery } from "@/hooks/useFetchBattery";
+import { Battery } from "@/components/Battery/Battery";
 
 export default function Home() {
+  const { responseBody: battery, fetchBattery } = useFetchBattery();
+
+  useEffect(() => {
+    fetchBattery();
+  }, []);
+
+  console.log("battery", battery);
+
   return (
     <main className={styles.main}>
-      <Image
-        className={styles.logo}
-        src="/next.svg"
-        alt="Next.js Logo"
-        width={180}
-        height={37}
-        priority
-      />
+      {battery && (
+        <Battery capacity={battery.totalCapacity} charge={battery.charge} />
+      )}
     </main>
   );
 }
