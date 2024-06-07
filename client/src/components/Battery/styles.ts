@@ -8,6 +8,7 @@ export const BatteryContainer = styled.div<{
 }>`
   position: relative;
   width: ${containerWidth};
+  min-width: ${containerWidth};
   height: 250px;
   border: 2px solid black;
   background-color: rgba(255, 255, 255, 1);
