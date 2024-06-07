@@ -29,3 +29,11 @@ export const BatteryTerminal = styled.div`
   z-index: -1;
   transform: translate(100%, -50%);
 `;
+
+export const ChargeLevel = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: white;
+`;
