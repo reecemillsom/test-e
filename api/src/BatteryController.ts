@@ -1,19 +1,28 @@
-import { Body, Controller, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Param,
+  Patch,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Battery } from '@prisma/client';
-import { ChargeBatteryDTO, CreateBatteryDTO, DischargeBatteryDTO } from 'lib';
+import { CreateBatteryDTO, ChargeBatteryDTO, DischargeBatteryDTO } from './DTO';
 import { BatteryService } from './services/BatteryService';
 
-// TODO body types, will likely need to extend the interfaces so we can use validation pipes on them.
 @Controller('batteries')
 export class BatteryController {
   constructor(private readonly batteryService: BatteryService) {}
 
   @Post()
+  @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
   createBattery(@Body() body: CreateBatteryDTO): Promise<Battery> {
     return this.batteryService.createBattery(body.name, body.totalCapacity);
   }
 
   @Patch('/:id/charge')
+  @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
   chargeBattery(
     @Param('id') id: number,
     @Body() body: ChargeBatteryDTO,
@@ -22,6 +31,7 @@ export class BatteryController {
   }
 
   @Patch('/:id/discharge')
+  @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
   dischargeBattery(@Param('id') id: number, @Body() body: DischargeBatteryDTO) {
     return this.batteryService.dischargeBattery(id, body.discharge);
   }

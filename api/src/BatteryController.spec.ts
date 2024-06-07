@@ -1,10 +1,9 @@
 import * as request from 'supertest';
+import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { Battery, BatteryStatus } from '@prisma/client';
 import { AppModule } from './app.module';
 import PrismaService from './prisma.service';
-import { INestApplication } from '@nestjs/common';
-import * as module from 'node:module';
 
 describe('BatteryController', () => {
   describe('POST /batteries', () => {
@@ -45,6 +44,7 @@ describe('BatteryController', () => {
     it('should return the created battery', async () => {
       return request(app.getHttpServer())
         .post('/batteries')
+        .send({ name: 'New Battery' })
         .expect(201)
         .expect(battery);
     });
