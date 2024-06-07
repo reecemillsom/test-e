@@ -4,7 +4,7 @@ const containerWidth = "150px";
 const terminalWidth = "50px";
 
 export const BatteryContainer = styled.div<{
-  totalCharge: number;
+  $totalCharge: number;
 }>`
   position: relative;
   width: ${containerWidth};
@@ -14,7 +14,7 @@ export const BatteryContainer = styled.div<{
   background-color: rgba(255, 255, 255, 1);
   background-image: linear-gradient(
     to top,
-    green ${(props) => `${props.totalCharge}%`},
+    green ${(props) => `${props.$totalCharge}%`},
     rgba(0, 0, 0, 0) 0%
   );
 `;

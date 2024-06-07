@@ -10,7 +10,7 @@ export const Battery: FC<Props> = ({ capacity, charge }) => {
   const totalCharge = Math.round((charge / capacity) * 100);
 
   return (
-    <S.BatteryContainer totalCharge={totalCharge}>
+    <S.BatteryContainer $totalCharge={totalCharge}>
       <S.BatteryTerminal />
       <S.ChargeLevel>
         {totalCharge}% / {capacity}kW

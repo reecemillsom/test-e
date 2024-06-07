@@ -24,6 +24,10 @@ export const BatteryContainer = styled.div`
 `;
 
 export const BatteryEditInput = styled.input`
+  background: ghostwhite;
+  border: 1px solid lightgray;
+  color: black;
+
   width: 50%;
 
   @media (max-width: 600px) {
