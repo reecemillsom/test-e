@@ -1,1 +1,2 @@
-export * from './DTO';
+export * from "./DTO";
+export * from "./BatteryResponseBody";

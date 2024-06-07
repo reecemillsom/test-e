@@ -17,8 +17,8 @@ export class BatteryController {
   constructor(private readonly batteryService: BatteryService) {}
 
   @Get('/:id/')
-  getBattery(@Param('id') id: number): Promise<Battery> {
-    return this.batteryService.findById(id);
+  getBattery(@Param('id') id: string): Promise<Battery> {
+    return this.batteryService.findById(Number(id));
   }
 
   @Post()
@@ -30,15 +30,15 @@ export class BatteryController {
   @Patch('/:id/charge')
   @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
   chargeBattery(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() body: ChargeBatteryDTO,
   ): Promise<Battery> {
-    return this.batteryService.chargeBattery(id, body.charge);
+    return this.batteryService.chargeBattery(Number(id), body.charge);
   }
 
   @Patch('/:id/discharge')
   @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
-  dischargeBattery(@Param('id') id: number, @Body() body: DischargeBatteryDTO) {
-    return this.batteryService.dischargeBattery(id, body.discharge);
+  dischargeBattery(@Param('id') id: string, @Body() body: DischargeBatteryDTO) {
+    return this.batteryService.dischargeBattery(Number(id), body.discharge);
   }
 }
