@@ -1,2 +1,2 @@
 1. Add yarn workspace packages as dependencies to other packages.
-2. Add validation pipes to enforce validation on body etc...
+2. Write in README the version of yarn to use.
