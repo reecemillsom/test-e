@@ -36,5 +36,6 @@ export const ChargeLevel = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: white;
+  color: black;
+  font-weight: bold;
 `;

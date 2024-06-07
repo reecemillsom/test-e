@@ -60,7 +60,7 @@ export class BatteryService {
 
     const doesEliminateCharge = battery.charge - charge === 0;
     const shouldDegradeBattery =
-      doesEliminateCharge && battery.emptyCount + 1 === 3;
+      doesEliminateCharge && (battery.emptyCount + 1) % 3 === 0;
 
     const update = {
       emptyCount: doesEliminateCharge

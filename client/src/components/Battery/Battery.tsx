@@ -13,7 +13,7 @@ export const Battery: FC<Props> = ({ capacity, charge }) => {
     <S.BatteryContainer totalCharge={totalCharge}>
       <S.BatteryTerminal />
       <S.ChargeLevel>
-        {totalCharge}% / {charge}kW
+        {totalCharge}% / {capacity}kW
       </S.ChargeLevel>
     </S.BatteryContainer>
   );
