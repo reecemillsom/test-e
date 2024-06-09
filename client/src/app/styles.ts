@@ -23,10 +23,16 @@ export const BatteryContainer = styled.div`
   flex-direction: row;
 `;
 
+export const BatteryEditContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 export const BatteryEditInput = styled.input`
   background: ghostwhite;
   border: 1px solid lightgray;
   color: black;
+  margin-right: 10px;
 
   width: 50%;
 

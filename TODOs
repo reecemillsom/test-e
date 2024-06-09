@@ -1,4 +1,4 @@
 1. Add yarn workspace packages as dependencies to other packages.
 2. Write in README the version of yarn to use.
 3. Check if need global version of prisma to run the scripts in package.json
-4. Round total capacity to 2 decimal places.
+4. Round total capacity to 2 decimal places. - DOING

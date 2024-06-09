@@ -5,6 +5,7 @@ import { useFetchBattery } from "@/hooks/useFetchBattery";
 import { Battery } from "@/components/Battery/Battery";
 import {
   BatteryContainer,
+  BatteryEditContainer,
   BatteryEditInput,
   BatteryInfo,
   BatteryMeta,
@@ -61,21 +62,27 @@ export default function Home() {
               </BatteryMeta>
               <BatteryMeta>
                 <b>Charge:</b>
-                <BatteryEditInput
-                  type="number"
-                  step={0.1}
-                  min={0.1}
-                  onKeyDown={(e) => handlerSubmit(e, "charge")}
-                />
+                <BatteryEditContainer>
+                  <BatteryEditInput
+                    type="number"
+                    step={0.1}
+                    min={0.1}
+                    onKeyDown={(e) => handlerSubmit(e, "charge")}
+                  />
+                  <span>kW</span>
+                </BatteryEditContainer>
               </BatteryMeta>
               <BatteryMeta>
                 <b>Discharge:</b>
-                <BatteryEditInput
-                  type="number"
-                  step={0.1}
-                  min={0.1}
-                  onKeyDown={(e) => handlerSubmit(e, "discharge")}
-                />
+                <BatteryEditContainer>
+                  <BatteryEditInput
+                    type="number"
+                    step={0.1}
+                    min={0.1}
+                    onKeyDown={(e) => handlerSubmit(e, "discharge")}
+                  />
+                  <span>kW</span>
+                </BatteryEditContainer>
               </BatteryMeta>
             </BatteryInfo>
           </BatteryContainer>
