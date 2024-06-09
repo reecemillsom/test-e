@@ -5,7 +5,6 @@ Build an application that handles battery states.
 
 1. Docker & Docker Compose installation: https://docs.docker.com/compose/install/
 2. Yarn installed at version v1.22.22: https://classic.yarnpkg.com/en/docs/install#windows-stable
-3. 
 
 ## Getting started
 
