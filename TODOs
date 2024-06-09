@@ -2,3 +2,4 @@
 2. Write in README the version of yarn to use.
 3. Check if need global version of prisma to run the scripts in package.json
 4. Show error messages in an alert or some kind of feedback
+5. Round total capacity to 2 decimal places.
