@@ -38,6 +38,8 @@ Starting App: Open 2 terminals, in one cd into api and run `yarn start` in the o
 
 6. Create a Docker file that can be deployed for the API to run in an ECS container.
 
+7. Client side I would add a E2E test to check that the behaviour works as expected. E.g. if I discharge / charge / empty 3 times, etc...
+
 ## Deployments
 
 1. Create Github Action pipelines to deploy to production.
