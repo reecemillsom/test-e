@@ -27,7 +27,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchBattery();
-  }, []);
+  }, [fetchBattery]);
 
   const handlerSubmit = (e: KeyboardEvent, editType: EditType) => {
     const isEnterKey = e.key === "Enter";
@@ -39,8 +39,7 @@ export default function Home() {
           ? chargeBattery(targetValue)
           : dischargeBattery(targetValue);
       } else {
-        // TODO give some form of user feedback
-        console.log("Input value should be greater than 0");
+        messageApi.error("Input value should be greater than 0");
       }
     }
   };
