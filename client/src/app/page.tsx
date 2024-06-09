@@ -10,16 +10,19 @@ import {
   BatteryMeta,
 } from "./styles";
 import styles from "./page.module.css";
+import { message } from "antd";
 
 type EditType = "charge" | "discharge";
 
 export default function Home() {
+  const [messageApi, contextHolder] = message.useMessage();
+
   const {
     responseBody: battery,
     fetchBattery,
     chargeBattery,
     dischargeBattery,
-  } = useFetchBattery();
+  } = useFetchBattery(messageApi);
 
   useEffect(() => {
     fetchBattery();
@@ -42,39 +45,42 @@ export default function Home() {
   };
 
   return (
-    <main className={styles.main}>
-      {battery && (
-        <BatteryContainer style={{ display: "flex", flexDirection: "row" }}>
-          <Battery capacity={battery.totalCapacity} charge={battery.charge} />
-          <BatteryInfo>
-            <BatteryMeta>
-              <b>Status:</b> <span>{battery.status}</span>
-            </BatteryMeta>
-            <BatteryMeta>
-              <b>Current Charge:</b>
-              <span>{battery.charge}kW</span>
-            </BatteryMeta>
-            <BatteryMeta>
-              <b>Charge:</b>
-              <BatteryEditInput
-                type="number"
-                step={0.1}
-                min={0.1}
-                onKeyDown={(e) => handlerSubmit(e, "charge")}
-              />
-            </BatteryMeta>
-            <BatteryMeta>
-              <b>Discharge:</b>
-              <BatteryEditInput
-                type="number"
-                step={0.1}
-                min={0.1}
-                onKeyDown={(e) => handlerSubmit(e, "discharge")}
-              />
-            </BatteryMeta>
-          </BatteryInfo>
-        </BatteryContainer>
-      )}
-    </main>
+    <>
+      {contextHolder}
+      <main className={styles.main}>
+        {battery && (
+          <BatteryContainer style={{ display: "flex", flexDirection: "row" }}>
+            <Battery capacity={battery.totalCapacity} charge={battery.charge} />
+            <BatteryInfo>
+              <BatteryMeta>
+                <b>Status:</b> <span>{battery.status}</span>
+              </BatteryMeta>
+              <BatteryMeta>
+                <b>Current Charge:</b>
+                <span>{battery.charge}kW</span>
+              </BatteryMeta>
+              <BatteryMeta>
+                <b>Charge:</b>
+                <BatteryEditInput
+                  type="number"
+                  step={0.1}
+                  min={0.1}
+                  onKeyDown={(e) => handlerSubmit(e, "charge")}
+                />
+              </BatteryMeta>
+              <BatteryMeta>
+                <b>Discharge:</b>
+                <BatteryEditInput
+                  type="number"
+                  step={0.1}
+                  min={0.1}
+                  onKeyDown={(e) => handlerSubmit(e, "discharge")}
+                />
+              </BatteryMeta>
+            </BatteryInfo>
+          </BatteryContainer>
+        )}
+      </main>
+    </>
   );
 }

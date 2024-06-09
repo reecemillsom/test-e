@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { MessageInstance } from "antd/es/message/interface";
 import { BatteryResponseBody } from "lib";
 
-export function useFetchBattery() {
+export function useFetchBattery(messageApi: MessageInstance) {
   const [responseBody, setResponseBody] = useState<null | BatteryResponseBody>(
     null,
   );
@@ -21,19 +22,17 @@ export function useFetchBattery() {
       });
 
       if (!response.ok) {
-        // TODO show some user feedback
         const responseText = await response.text();
 
-        console.error("responseText", responseText);
+        messageApi.error(JSON.parse(responseText).message);
 
         return;
       }
 
       const json = await response.json();
       setResponseBody(json);
-    } catch (error) {
-      // TODO show user feedback
-      console.error("Something unexpected occurred", error);
+    } catch (error: unknown) {
+      messageApi.error("Something unexpected happened");
     }
   };
 
