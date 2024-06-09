@@ -10,8 +10,10 @@ Build an application that handles battery states.
 
 1. `yarn` - install dependencies in the route of the project
 2. `cd ./api/ && yarn start:db` - This will start the container for the postgres database.
-3. `yarn run:migration:db` - This will run the migration script to instantiate the Battery table
-4. `yarn seed:db` - This will create a default battery in the table to use within the application.
+3. Add the following to .env in the route of the API directory `DATABASE_URL="postgresql://sunsave:secret@localhost:54325/postgres?schema=public"`
+4. `yarn run:migration:db` - This will run the migration script to instantiate the Battery table
+5. `yarn seed:db` - This will create a default battery in the table to use within the application.
+6. `cd ./client/` - Create `.env.local` file in the route of the directory, and paste the contents `NEXT_PUBLIC_API_URL="http://localhost:3000/batteries"`
 
 ## Commands
 
