@@ -23,6 +23,16 @@ Building: In the route of the project run `yarn build`
 
 Starting App: Open 2 terminals, in one cd into api and run `yarn start` in the other cd into client and run `yarn dev`
 
+## Testing
+
+Once the API & Client have been started, you are ready to test. The API should start on port `3000` and the client on port `3001`.
+
+When opening the client you will be presented with a battery and some of the information for it.
+
+Inputs are triggered by hitting the enter button, I have mentioned improving this in one of the points below.
+
+Happy testing :).
+
 ## Things I would do as improvements
 
 1. Instead of returning error messages from the API, I would instead return codes and find the message based on a client mapping between code and message.
