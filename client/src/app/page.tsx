@@ -1,6 +1,7 @@
 "use client";
 
 import { KeyboardEvent, useEffect } from "react";
+import { message } from "antd";
 import { useFetchBattery } from "@/hooks/useFetchBattery";
 import { Battery } from "@/components/Battery/Battery";
 import {
@@ -11,7 +12,6 @@ import {
   BatteryMeta,
 } from "./styles";
 import styles from "./page.module.css";
-import { message } from "antd";
 
 type EditType = "charge" | "discharge";
 

@@ -1,5 +1,5 @@
 {
-  "name": "sunsave-test",
+  "name": "test-e",
   "version": "1.0.0",
   "description": "Test for battery application",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/reecemillsom/sunsave-test.git"
+    "url": "https://github.com/reecemillsom/test-e.git"
   },
   "private": true,
   "workspaces": [
